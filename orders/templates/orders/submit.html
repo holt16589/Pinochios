@@ -1,0 +1,55 @@
+{% extends "orders/base.html" %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'orders/order.css' %}">
+{% endblock %}
+
+{% block title %}
+    Order
+{% endblock %}
+
+{% block body %}
+<div class = "container-fluid">
+      <section class ="col-12 mx-auto">
+
+        <div class="card menu">
+          <div class="card-body">
+
+            <div class = "title-wrapper text-center">
+            <span class="card-title">
+              <h3>Your Order</h3>
+            </span>
+            </div>
+<div class = "sub-wrapper text-center">
+  <h5>Your order has successfully been submitted and will be available for pickup in 30-45 minutes!</h5><br>
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2947.616665868137!2d-71.12247288409836!3d42.37200807918617!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89e3775d4e48fa43%3A0xcab27982991e9fe3!2sPinocchio&#39;s%20Pizza%20%26%20Subs!5e0!3m2!1sen!2sca!4v1593388552152!5m2!1sen!2sca" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0" id="footer-map"></iframe>
+  </div>
+
+<div class = "receipt-wrapper">
+<h3 align="center">Receipt</h3>
+            <ul>
+              {% for cat in orderCategories %}
+              <li><h4><b>{{cat | cut:"('" | cut:"',)"}}</b></h4></li>
+
+              {% for item in orderItems %}
+              {% if item.category == cat|cut:"("|cut:"'"|cut:","|cut:")" %}
+              <li> {{item.name}} - ${{item.price}}</li>
+              {% endif %}
+              {% endfor %}
+
+              {% endfor %}
+
+              </ul>
+              <hr>
+              <h4><b>Total: ${{Total|floatformat:2}}<b></h4>
+</div>
+
+          </div>
+        </div>
+
+  </section>
+
+  </div>
+
+{% endblock %}

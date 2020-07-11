@@ -1,0 +1,41 @@
+{% extends "orders/base.html" %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="../../static/orders/index.css">
+{% endblock %}
+
+{% block title %}
+    Pinnochio's Pizza and Subs
+{% endblock %}
+
+{% block body %}
+
+<div id="home">
+<div class="landing-text">
+<h1>Experience Harvard's Favorite Slice.</h1>
+<h3>Award-winning sicilian-style pizza and subs</h3>
+<a href="{% url 'order' 'Regular Pizza' %}" role="button" type="button" class="btn btn-outline-light" aria-pressed="true">Order Now</a>
+  </div>
+  </div>
+
+  <div class = "our-story container">
+    <div class ="row">
+<div class="col-12 col-lg-6" align="center">
+<img src="../../static/orders/images/pizza-prep.jpg" id="story-img">
+    </div>
+
+        <div class="col-12 col-lg-6 story-content" align="center">
+          <h1 class="sm">About Us</h1>
+          <br>
+<p>For over 50 years, Pinochio's Pizza and Subs has proudly served the Harvard area, feeding students, families and working professionals alike. We sell a wide range of menu options, from our award-winning Sicilian pizzas to our mouth-watering steak subs.
+Orders are available for pick up via our website or delivery via DoorDash and GrubHub.</p>
+<br>
+<p>Come find us in the heart of Cambridge in Harvard Square, you're guaranteed to find something you love!</p>
+            </div>
+
+</div>
+    </div>
+
+
+{% endblock %}

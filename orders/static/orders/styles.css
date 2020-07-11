@@ -1,0 +1,97 @@
+@import url('https://fonts.googleapis.com/css2?family=Italianno&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
+html, body {
+  height: 100%;
+  width: 100%;
+  margin: 0px;
+   padding: 0px;
+   overflow-x: hidden;
+  font-family: 'Open Sans', sans-serif;
+}
+
+#cart-button{
+  background: none;
+}
+
+.navbar {
+     background:black;
+     border-width: 0px;
+     color: white;
+     font-size: 1.2em;
+     padding: 1% 0;
+}
+
+.navbar-brand{
+  min-height: 30px;
+  padding: 0 15px 5px;
+  align-items: center;
+  display: flex;
+}
+
+.navbar-brand h1 {
+  color: white;
+  font-family: 'Italianno', cursive;
+  margin-left: 1em;
+}
+
+.navbar-default .navbar-nav li a{
+  color: white;
+}
+
+.navbar-default .navbar-nav li a:hover{
+  text-decoration: underline;
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .navbar .navbar-collapse {
+    position: absolute;
+    width: 100%;
+    background: black;
+  }
+  #footer-map{
+    width: 90vw;
+}
+
+#cart-button{
+  display: none;
+}
+}
+
+@media (min-width: 769px) {
+#cart-button{
+  margin-right: 1em;
+  height: 60%;
+}
+
+#cart-button-mobile{
+  display: none;
+}
+}
+
+footer {
+  width: 100%;
+  background-color: black;
+  color: white;
+  padding: 5% 5% 5% 5%;
+}
+
+footer .fab {
+  padding: 15px;
+  color: #FFF;
+  font-size: 25px;
+  margin-bottom: 1em;
+  margin-top: 1em;
+}
+
+footer h3{
+  margin-bottom: 1em;
+}
+
+.deliver-btn{
+  margin-top: 1em;
+}
+
+
+}

@@ -1,0 +1,33 @@
+
+.form-container {
+  background: #fff;
+}
+
+  .form-container{
+  padding-top: 5vh;
+  padding-bottom: 5vh;
+  margin-top: 15vh;
+  margin-bottom: 10vh;
+}
+
+.form-group .input{
+  width:30%;
+  margin-left: 1em;
+}
+}
+
+.title{
+  margin-bottom: 1em;
+}
+
+label {
+    display:block;
+    font-weight: bold;
+}
+.formbuttons {
+  padding: 10px;
+}
+
+.formbuttons button{
+    margin-bottom: 1em;
+}

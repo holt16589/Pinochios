@@ -1,0 +1,51 @@
+{% extends "orders/base.html" %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'orders/login.css' %}">
+{% endblock %}
+
+{% block title %}
+    Login
+{% endblock %}
+
+{% block body %}
+
+
+    <div class = "row text-center justify-content-center" id="login-body">
+      <section class ="col-sm-12">
+  <form class = "form-container justify-content-center" method ="POST" >
+    {% csrf_token %}
+    {% if error %}
+        <div class="alert alert-danger" role="alert">
+    {{ error }}
+    </div>
+    {% endif %}
+    {% if success %}
+        <div class="alert alert-success" role="alert">
+    {{ success }}
+    </div>
+    {% endif %}
+    <img src="https://www.pinocchiospizza.net/images/pinocchio_72.gif" width=70px class = "img">
+    <br>
+        <h2 class="title text-center">Welcome to Pinnochio's!</h2>
+
+        <div class="form-group">
+    <label for="label">Username</label>
+    <input type="text" class="input" name = "username" placeholder="Username">
+  </div>
+  <div class="form-group">
+    <label for="label">Password</label>
+    <input type="password" class="input" name = "password" placeholder = "Password">
+  </div>
+
+  <div class = "formbuttons">
+  <button type="submit" class="btn btn-dark btn-lg">Login</button>
+  <p><a href="{% url 'register' %}">Don't have an account? Register here!</a></p>
+  </div>
+  </form>
+  </section>
+  </div>
+
+
+{% endblock %}

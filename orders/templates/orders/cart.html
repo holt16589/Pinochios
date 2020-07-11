@@ -1,0 +1,62 @@
+{% extends "orders/base.html" %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'orders/order.css' %}">
+{% endblock %}
+
+{% block title %}
+    Order
+{% endblock %}
+
+{% block body %}
+<div class = "container-fluid">
+      <section class ="col-12 mx-auto">
+
+        <div class="card menu">
+          <div class="card-body">
+
+            <div class = "title-wrapper text-center">
+            <span class="card-title">
+              <h3>Your Cart</h3>
+            </span>
+            </div>
+            {% if orderItems %}
+            <ul>
+              {% for cat in orderCategories %}
+              <li><h4><b>{{cat | cut:"('" | cut:"',)"}}</b></h4></li>
+
+              {% for item in orderItems %}
+              {% if item.category == cat|cut:"("|cut:"'"|cut:","|cut:")" %}
+              <li>{{item.name}} - ${{item.price}} (<a href="{% url 'remove' item.id %}"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></a>)</li>
+              {% endif %}
+              {% endfor %}
+
+              {% endfor %}
+
+              </ul>
+              <hr>
+              <h4><b>Total: ${{Total|floatformat:2}}<b></h4>
+          <a href="{% url 'submit' %}" class="btn btn-primary btn-block" role="button" id="submitOrder-btn">Submit Order</a>
+            {% else %}
+            <h5 align="center">Your cart is currently empty!.</h5>
+            {% endif %}
+
+
+
+          </div>
+        </div>
+
+  </section>
+
+  </div>
+
+  <script>
+  window.onload = function() {
+  {% if alertMessage %}
+  setTimeout(function(){ alert("{{alertMessage}}"); }, 100);
+  {% endif %}
+  }
+    </script>
+
+{% endblock %}
