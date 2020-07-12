@@ -72,9 +72,8 @@ def add(request, category, name, price):
             toppings = 3
             currentOrder.toppingAllowance += 3
             currentOrder.save()
-        elif name == "Special":
-            currentOrder.toppingAllowance = 19
-            currentOrder.save()
+        else:
+            toppings=0
 
     #alert to confirm that the item was successfully added to cart
     alertMessage = name + " " + category + " has been added to your cart!"
@@ -115,10 +114,44 @@ def add(request, category, name, price):
 
 #function to remove items from cart
 def remove(request, id):
-    order_items.objects.filter(id=id).delete()
-    #get the user's current order and items/categories
     orderNum = order.objects.get(user=request.user, status="initialized").order_number
+    initialOrder = order.objects.get(user=request.user, order_number = orderNum)
+
+    category = order_items.objects.get(id=id).category
+    name = order_items.objects.get(id=id).name
+
+    if(category == "Regular Pizza" or category == "Sicilian Pizza"):
+        currentAllowance = initialOrder.toppingAllowance
+        if name == "1 topping":
+            currentAllowance -= 1
+        elif name == "2 toppings":
+            currentAllowance -= 2
+        elif name == "3 toppings":
+            currentAllowance -= 3
+        else:
+            currentAllowance += 0
+
+        if currentAllowance < 0:
+            context = {
+                "orderCategories": order_items.objects.filter(order=initialOrder).values_list('category').distinct(),
+                "orderItems": order_items.objects.filter(order=initialOrder),
+                "alertMessage": "Error: Before removing the pizza, you must remove the pizza's toppings.",
+                "Total": order_items.objects.filter(order=initialOrder).aggregate(Sum('price'))['price__sum'] #calculate the cart total by summing the item's prices
+            }
+            return render(request, "orders/cart.html", context)
+        else:
+            initialOrder.toppingAllowance = currentAllowance
+            initialOrder.save()
+
+    order_items.objects.filter(id=id).delete()
+
+    #get the user's current order and items/categories
     currentOrder = order.objects.get(user=request.user, order_number = orderNum)
+
+    if(category == "Toppings"):
+                currentOrder.toppingAllowance += 1
+                currentOrder.save()
+
 
     context = {
         "orderCategories": order_items.objects.filter(order=currentOrder).values_list('category').distinct(),
@@ -185,7 +218,7 @@ def login_route(request):
 
             #if they do not have an existing initialized order, create a new empty order
             if userCart == 0:
-                orderNum = order.objects.all().aggregate(Max('order_number'))['order_number__max'] 
+                orderNum = order.objects.all().aggregate(Max('order_number'))['order_number__max']
                 newOrder = order(user=user, order_number = (orderNum +1),toppingAllowance=0, status="initialized")
                 newOrder.save()
 
