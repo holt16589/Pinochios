@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block head %}
-<link rel="stylesheet" href="../../static/orders/index.css">
+<link rel="stylesheet" href="{% static 'orders/index.css' %}">
 {% endblock %}
 
 {% block title %}
@@ -26,7 +26,7 @@
   <div class = "our-story container">
     <div class ="row">
 <div class="col-12 col-lg-6" align="center">
-<img src="../../static/orders/images/pizza-prep.jpg" id="story-img">
+<img src="{% static 'orders/images/pizza-prep.jpg' %}" id="story-img">
     </div>
 
         <div class="col-12 col-lg-6 story-content" align="center">
