@@ -39,4 +39,7 @@ Once an order is submitted, the user is presented with a confirmation page and a
 
 The user will also recieve a confirmation email for their order, based on the email they provided at the time of registration.
 
-![](orders/static/orders/images/screenshot8.jpg)
+<p align="center">
+  <img height="800" src="https://github.com/holt16589/Pinochios/blob/master/orders/static/orders/images/screenshot9.jpg">
+</p>
+
