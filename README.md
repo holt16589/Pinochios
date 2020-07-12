@@ -39,4 +39,4 @@ Once an order is submitted, the user is presented with a confirmation page and a
 
 The user will also recieve a confirmation email for their order, based on the email they provided at the time of registration.
 
-![](orders/static/orders/images/screenshot8.png)
+![](orders/static/orders/images/screenshot8.jpg)
