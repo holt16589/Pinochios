@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Italianno&display=swap');
+
+  html, body {
+    font-family: 'Open Sans', sans-serif;
+  }
+
+#header-bar{
+  background: black;
+}
+
+  .navbar-brand{
+    min-height: 30px;
+    padding: 0 15px 5px;
+    align-items: center;
+    display: flex;
+  }
+
+  .navbar-brand h1 {
+    color: white;
+    font-family: 'Italianno', cursive;
+    margin-left: 1em;
+  }
+
+  footer {
+    width: 100%;
+    background-color: black;
+    color: white;
+    padding: 5% 5% 5% 5%;
+  }
+
+  footer h3{
+    margin-bottom: 1em;
+  }
+
+  @media (min-width: 769px) {
+    .menu{
+      margin-top: 15vh;
+      margin-bottom: 5vh;
+    }
+
+    .card{
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+    border: 2px solid black;
+    padding: 2em;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .menu{
+      margin-top: 15vh;
+      margin-bottom: 5vh;
+    }
+  }
+  ul {
+    list-style-type: none;
+  }
+  </style>
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  </head>
+
+<body>
+
+  <nav class ="navbar navbar-default navbar-fixed-top" role ="navigation" id="header-bar">
+    <div class="container-fluid">
+      <div class="navbar-head">
+        <a class="navbar-brand" id="brand-name"><h1>Pinochio's Pizza</h1></a>
+  </div>
+</div>
+  </nav>
+
+  <div class = "container-fluid">
+        <section class ="col-12 mx-auto">
+
+          <div class="card menu">
+            <div class="card-body">
+
+              <div class = "title-wrapper text-center">
+              <span class="card-title">
+                <h3>Your Order</h3>
+              </span>
+              </div>
+  <div class = "sub-wrapper text-center">
+  <hr>
+
+    </div>
+
+  <div class = "receipt-wrapper">
+              <ul>
+                {% for cat in orderCategories %}
+                <li><h4><b>{{cat | cut:"('" | cut:"',)"}}</b></h4></li>
+
+                {% for item in orderItems %}
+                {% if item.category == cat|cut:"("|cut:"'"|cut:","|cut:")" %}
+                <li> {{item.name}} - ${{item.price}}</li>
+                {% endif %}
+                {% endfor %}
+
+                {% endfor %}
+
+                </ul>
+                <hr>
+                <h4><b>Total: ${{Total|floatformat:2}}<b></h4>
+  </div>
+
+            </div>
+          </div>
+
+    </section>
+
+    </div>
+
+  <footer class="container-fluid text-center" id="contact">
+    <div class="row">
+      <div class="col-12">
+        <h3><u>Contact</u></h3>
+        <p><b>Phone:</b> 617-876-4897</p>
+        <p><b>Email:</b> pinocchiospizza1@gmail.com</p><br>
+        <p><b>MON-THURS:</b> 11AM - 1AM</p>
+        <p><b>FRI-SAT:</b> 11AM - 2:30AM</p>
+        <p><b>SUN:</b> 1PM - 12AM</p>
+      </div>
+
+  </footer>
+
+    </body>
+</html>

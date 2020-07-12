@@ -4,6 +4,7 @@ from django.core.mail import send_mail
 from django.contrib.auth import login,logout,authenticate
 from django.contrib.auth.models import User
 from django.http import HttpResponse,HttpResponseRedirect
+from django.template.loader import render_to_string
 from django.shortcuts import render
 from django.urls import reverse
 from django.db.models import Max, Sum
@@ -153,18 +154,21 @@ def submitOrder(request):
     newOrder = order(user=request.user, order_number = (orderNum +1),toppingAllowance=0, status="initialized")
     newOrder.save()
 
-    #send email confirmation to user
-    subject = 'Your Pinochio\'s Pizza Order'
-    message = 'Thank you for your order!'
-    from_email = settings.EMAIL_HOST_USER
-
     context = {
-    "orderCategories": order_items.objects.filter(order=currentOrder).values_list('category').distinct(),
-    "orderItems": order_items.objects.filter(order=currentOrder),
-    "Total": order_items.objects.filter(order=currentOrder).aggregate(Sum('price'))['price__sum']
-    }
-    return render(request, "orders/submit.html", context)
+        "orderCategories": order_items.objects.filter(order=currentOrder).values_list('category').distinct(),
+        "orderItems": order_items.objects.filter(order=currentOrder),
+        "Total": order_items.objects.filter(order=currentOrder).aggregate(Sum('price'))['price__sum']
+        }
 
+    #send email confirmation to user
+    subject = 'Your Pinochio\'s Pizza Order has been submitted!'
+    message_plain = 'Thank you for your order!'
+    message_html = render_to_string('orders/email.html', context)
+    from_email = settings.EMAIL_HOST_USER
+    to_list=[request.user.email, settings.EMAIL_HOST_USER]
+    send_mail(subject, message_plain, from_email, to_list, fail_silently=True, html_message=message_html)
+
+    return render(request, "orders/submit.html", context)
 
 def login_route(request):
     #retrieve user entry from form when POST request is made
@@ -181,7 +185,7 @@ def login_route(request):
 
             #if they do not have an existing initialized order, create a new empty order
             if userCart == 0:
-                orderNum = order.objects.all().aggregate(Max('order_number'))['order_number__max']
+                orderNum = order.objects.all().aggregate(Max('order_number'))['order_number__max'] 
                 newOrder = order(user=user, order_number = (orderNum +1),toppingAllowance=0, status="initialized")
                 newOrder.save()
 
